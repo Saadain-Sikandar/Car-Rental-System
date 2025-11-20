@@ -31,87 +31,29 @@
         <h2 class="text-center text-dark fw-bold mb-4 border-bottom pb-2">All Cars</h2>
 
         <div class="row g-4">
-            <!-- Car 1 -->
+            <!-- Cars -->
+            @foreach($cars as $car)
             <div class="col-md-4 col-sm-6">
                 <div class="card shadow-sm">
+                    @if($car->image)
                     <img height="320px"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzueJEJMXguSYXNgbskvTQYR_TBXjXz3g36g&s"
-                        class="card-img-top" alt="Honda Civic">
+                        src="{{ asset('car_images/' . $car->image ) }}"
+                        class="card-img-top" alt="{{$car->image}}">
+                    @else
+                    <img height="320px" src="{{ asset('default_car.png') }}" class="card-img-top" alt="">
+                    @endif
                     <div class="card-body text-center">
-                        <h5 class="fw-bold bg-black text-white p-1">Honda Civic</h5>
-                        <p class="bg-black text-white p-1">PKR 9,000 / day</p>
+                        <h5 class="fw-bold bg-black text-white p-1">{{$car->model}}</h5>
+                        <p class="bg-black text-white p-1">PKR {{$car->price}} /day</p>
                     </div>
                 </div>
             </div>
-
-            <!-- Car 2 -->
-            <div class="col-md-4 col-sm-6">
-                <div class="card shadow-sm">
-                    <img height="320px"
-                        src="https://i0.wp.com/bestsellingcarsblog.com/wp-content/uploads/2015/01/Toyota-Corolla-Pakistan-2014.-Picture-courtesy-of-zeeginition.com_.jpg"
-                        class="card-img-top" alt="Toyota Corolla">
-                    <div class="card-body text-center">
-                        <h5 class="fw-bold bg-black text-white p-1">Toyota Corolla</h5>
-                        <p class="bg-black text-white p-1">PKR 8,000 / day</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Car 3 -->
-            <div class="col-md-4 col-sm-6">
-                <div class="card shadow-sm">
-                    <img height="320px"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBQoF56hymJT4zvcjTUuRsh4BBkUKod7NfuA&s"
-                        class="card-img-top" alt="Toyota Hilux Revo">
-                    <div class="card-body text-center">
-                        <h5 class="fw-bold bg-black text-white p-1">Toyota Hilux Revo</h5>
-                        <p class="bg-black text-white p-1">PKR 15,000 / day</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Car 4 -->
-            <div class="col-md-4 col-sm-6">
-                <div class="card shadow-sm">
-                    <img height="320px"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShVNIGASb0JHtl4r5nbUjAGNccmFyTTRYW4A&s"
-                        class="card-img-top" alt="Suzuki Alto">
-                    <div class="card-body text-center">
-                        <h5 class="fw-bold bg-black text-white p-1">Suzuki Alto</h5>
-                        <p class="bg-black text-white p-1">PKR 5,000 / day</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Car 5 -->
-            <div class="col-md-4 col-sm-6">
-                <div class="card shadow-sm">
-                    <img height="320px" src="https://autos.hamariweb.com/images/carimages/5012_1.jpg" class="card-img-top"
-                        alt="Toyota Fortuner">
-                    <div class="card-body text-center">
-                        <h5 class="fw-bold bg-black text-white p-1">Toyota Fortuner</h5>
-                        <p class="bg-black text-white p-1">PKR 18,000 / day</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Car 6 -->
-            <div class="col-md-4 col-sm-6">
-                <div class="card shadow-sm">
-                    <img height="320px"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn9RsQ1oixSRrlC1JZFLNxIMssVpy3Eb2LSw&s"
-                        class="card-img-top" alt="KIA Sportage">
-                    <div class="card-body text-center">
-                        <h5 class="fw-bold bg-black text-white p-1">KIA Sportage</h5>
-                        <p class="bg-black text-white p-1">PKR 12,000 / day</p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </section>
 
     <!-- Footer  -->
-     @include('components.Footer')
+    @include('components.Footer')
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -25,8 +25,10 @@
                     <tr>
                         <th>ID</th>
                         <th>Car</th>
-                        <th>Color</th>
+                        <th>Make</th>
                         <th>Model</th>
+                        <th>Year</th>
+                        <th>Color</th>
                         <th>Car No</th>
                         <th>Image (Path)</th>
                         <th>Price/Day</th>
@@ -35,37 +37,23 @@
                 </thead>
                 <tbody class="text-center">
                     <tr>
-                        <td>1</td>
-                        <td>Honda Civic</td>
-                        <td>White</td>
-                        <td>2022</td>
-                        <td>ABC-123</td>
+                        @foreach($cars as $car)
+                        <td>{{$car->id}}</td>
+                        <td>{{$car->name}}</td>
+                        <td>{{$car->make}}</td>
+                        <td>{{$car->model}}</td>
+                        <td>{{$car->year}}</td>
+                        <td>{{$car->color}}</td>
+                        <td>{{$car->carno}}</td>
                         <td>
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzueJEJMXguSYXNgbskvTQYR_TBXjXz3g36g&s"
-                                width="100" height="60" class="rounded" alt="Honda Civic">
+                            @if($car->image)
+                            <img src="{{ asset('car_images/' . $car->image) }}" width="100" height="60"
+                                class="rounded" alt="{{ $car->name }}">
+                            @else
+                            N/A
+                            @endif
                         </td>
-                        <td>PKR 9,000</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary me-1">
-                                <i class="fa-solid fa-pen-to-square"></i> Edit
-                            </button>
-                            <button class="btn btn-sm btn-danger">
-                                <i class="fa-solid fa-trash"></i> Delete
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>2</td>
-                        <td>Toyota Corolla</td>
-                        <td>Silver</td>
-                        <td>2021</td>
-                        <td>XYZ-456</td>
-                        <td>
-                            <img src="https://i0.wp.com/bestsellingcarsblog.com/wp-content/uploads/2015/01/Toyota-Corolla-Pakistan-2014.-Picture-courtesy-of-zeeginition.com_.jpg"
-                                width="100" height="60" class="rounded" alt="Toyota Corolla">
-                        </td>
-                        <td>PKR 8,000</td>
+                        <td>{{$car->price}}/PKR</td>
                         <td>
                             <button class="btn btn-sm btn-primary me-1">
                                 <i class="fa-solid fa-pen-to-square"></i> Edit
@@ -75,99 +63,17 @@
                             </button>
                         </td>
                     </tr>
-
-                    <tr>
-                        <td>3</td>
-                        <td>Toyota Hilux Revo</td>
-                        <td>Black</td>
-                        <td>2023</td>
-                        <td>JKL-789</td>
-                        <td>
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBQoF56hymJT4zvcjTUuRsh4BBkUKod7NfuA&s"
-                                width="100" height="60" class="rounded" alt="Toyota Hilux Revo">
-                        </td>
-                        <td>PKR 15,000</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary me-1">
-                                <i class="fa-solid fa-pen-to-square"></i> Edit
-                            </button>
-                            <button class="btn btn-sm btn-danger">
-                                <i class="fa-solid fa-trash"></i> Delete
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>4</td>
-                        <td>Suzuki Alto</td>
-                        <td>Red</td>
-                        <td>2020</td>
-                        <td>LMN-321</td>
-                        <td>
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShVNIGASb0JHtl4r5nbUjAGNccmFyTTRYW4A&s"
-                                width="100" height="60" class="rounded" alt="Suzuki Alto">
-                        </td>
-                        <td>PKR 5,000</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary me-1">
-                                <i class="fa-solid fa-pen-to-square"></i> Edit
-                            </button>
-                            <button class="btn btn-sm btn-danger">
-                                <i class="fa-solid fa-trash"></i> Delete
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>5</td>
-                        <td>Toyota Fortuner</td>
-                        <td>Gray</td>
-                        <td>2023</td>
-                        <td>DEF-654</td>
-                        <td>
-                            <img src="https://autos.hamariweb.com/images/carimages/5012_1.jpg"
-                                width="100" height="60" class="rounded" alt="Toyota Fortuner">
-                        </td>
-                        <td>PKR 18,000</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary me-1">
-                                <i class="fa-solid fa-pen-to-square"></i> Edit
-                            </button>
-                            <button class="btn btn-sm btn-danger">
-                                <i class="fa-solid fa-trash"></i> Delete
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>6</td>
-                        <td>KIA Sportage</td>
-                        <td>Blue</td>
-                        <td>2022</td>
-                        <td>GHI-987</td>
-                        <td>
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn9RsQ1oixSRrlC1JZFLNxIMssVpy3Eb2LSw&s"
-                                width="100" height="60" class="rounded" alt="KIA Sportage">
-                        </td>
-                        <td>PKR 12,000</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary me-1">
-                                <i class="fa-solid fa-pen-to-square"></i> Edit
-                            </button>
-                            <button class="btn btn-sm btn-danger">
-                                <i class="fa-solid fa-trash"></i> Delete
-                            </button>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 
     <!-- footer  -->
-     @include('components.footer')
-
+    @include('components.footer')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+<!-- Sweet Alert  -->
+@include('sweetalert::alert')
 
 </html>

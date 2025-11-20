@@ -74,7 +74,7 @@
         </div>
     </div>
 
-    @include('components.Footer')
+    @include('components.footer')
 
     <script>
         const orderbtn = document.getElementById("orderBtn");

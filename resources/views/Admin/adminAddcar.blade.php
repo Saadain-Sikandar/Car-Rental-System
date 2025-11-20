@@ -25,41 +25,39 @@
         </div>
 
         <!-- Add Car Form -->
-        <div class="card shadow-lg border-0 mx-auto" style="max-width: 700px;">
+        <div class="card shadow-lg border-0 mx-auto mb-5 " style="max-width: 700px;">
             <div class="card-body">
-                <form action="#" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.storecar') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <!-- Car Name -->
                     <div class="mb-3">
                         <label class="form-label fw-bold">Car Name</label>
-                        <input type="text" name="car" class="form-control" placeholder="Enter car name" required>
+                        <input type="text" name="name" class="form-control" placeholder="Enter car name" required>
                     </div>
 
-                    <!-- Color -->
+                    <!-- Make -->
                     <div class="mb-3">
-                        <label class="form-label fw-bold">Color</label>
-                        <input type="text" name="color" class="form-control" placeholder="Enter car color" required>
+                        <label class="form-label fw-bold">Make</label>
+                        <input type="text" name="make" class="form-control" placeholder="Enter car make" required>
                     </div>
 
                     <!-- Model -->
                     <div class="mb-3">
                         <label class="form-label fw-bold">Model</label>
-                        <input type="number" name="model" class="form-control" placeholder="Enter model year" required>
+                        <input type="text" name="model" class="form-control" placeholder="Enter model" required>
                     </div>
 
-                    <!-- Car Number -->
+                    <!-- Year -->
                     <div class="mb-3">
-                        <label class="form-label fw-bold">Car No</label>
-                        <input type="text" name="car_no" class="form-control" placeholder="Enter registration number" required>
+                        <label class="form-label fw-bold">Year</label>
+                        <input type="number" name="year" class="form-control" placeholder="Enter year" required>
                     </div>
 
-                    <!-- Image Path -->
+                    <!-- Color -->
                     <div class="mb-3">
-                        <label class="form-label fw-bold">Image (Path or Upload)</label>
-                        <input type="text" name="image" class="form-control mb-2" placeholder="Enter image URL">
-                        <small class="text-secondary">OR upload image below</small>
-                        <input type="file" name="image_file" class="form-control mt-2">
+                        <label class="form-label fw-bold">Color</label>
+                        <input type="text" name="color" class="form-control" placeholder="Enter car color">
                     </div>
 
                     <!-- Price per Day -->
@@ -67,6 +65,26 @@
                         <label class="form-label fw-bold">Price / Day (PKR)</label>
                         <input type="number" name="price" class="form-control" placeholder="Enter price per day" required>
                     </div>
+
+                    <!-- Car Number -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Car Number</label>
+                        <input type="text" name="carno" class="form-control" placeholder="Enter registration number" required>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Description</label>
+                        <textarea name="Desc" class="form-control" placeholder="Enter car description" required></textarea>
+                    </div>
+
+                    <!-- Image Upload -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Image</label>
+                        <input type="file" name="image" class="form-control" accept="image/*">
+                        <small class="text-secondary">Accepted formats: jpg, jpeg, png</small>
+                    </div>
+
 
                     <!-- Submit Button -->
                     <div class="d-grid">
