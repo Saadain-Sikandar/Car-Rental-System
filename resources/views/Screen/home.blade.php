@@ -112,6 +112,7 @@
     </section>
     @include('components.footer')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
 <script>
@@ -236,9 +237,18 @@
         if (!cart.some(car => car.id === id)) {
             cart.push(carToadd);
             localStorage.setItem("cart", JSON.stringify(cart));
-            alert(`${carToadd.name} added to the cart!`);
+            Swal.fire({
+                title: `${carToadd.name} added to cart successfully!`,
+                icon: "success",
+                draggable: true
+            });
         } else {
-            alert(`${carToadd.name} already in your cart.`);
+            Swal.fire({
+                title: `${carToadd.name} is already in your cart!`,
+                icon: "info",
+                timer: 1500,
+                showConfirmButton: false
+            });
         }
     }
 </script>

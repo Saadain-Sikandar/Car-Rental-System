@@ -20,7 +20,7 @@
 
     <!-- Welcome Section -->
     <div class="container mt-5 text-center">
-        <h1 class="text-warning">Welcome to Admin Panel</h1>
+        <h1 class="text-warning">Welcome to Admin DashBoard</h1>
         <p class="text-light bg-dark p-3 rounded mt-3">
             Manage cars and system settings from here.
         </p>

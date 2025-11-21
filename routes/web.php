@@ -23,6 +23,8 @@ Route::prefix('Admin')->group(function () {
     Route::get('/admininfo', [AdminController::class, 'info'])->name('Admin.admininfo');
     Route::get('/adminInfoForm', [AdminController::class, 'infoForm'])->name('Admin.adminInfoForm');
     Route::POST('/admin/store-car', [AdminController :: class, 'storecar'])->name('admin.storecar');
+    Route::get('/admin/edit/car/{id}',[AdminController :: class,'editCar'])->name('admin.editCar');
+    Route::put('/admin/update/car/{id}' ,[AdminController:: class, 'updateCar'])->name('admin.updateCar');
 });
 // auth 
 Route::get('/auth/login', [AuthController::class, 'login'])->name('auth.login');

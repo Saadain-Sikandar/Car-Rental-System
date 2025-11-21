@@ -55,9 +55,9 @@
                         </td>
                         <td>{{$car->price}}/PKR</td>
                         <td>
-                            <button class="btn btn-sm btn-primary me-1">
-                                <i class="fa-solid fa-pen-to-square"></i> Edit
-                            </button>
+                            <a href="{{ route('admin.editCar', $car->id) }}"> <button class="btn btn-sm btn-primary me-1">
+                                    <i class="fa-solid fa-pen-to-square"></i> Edit </button></a>
+
                             <button class="btn btn-sm btn-danger">
                                 <i class="fa-solid fa-trash"></i> Delete
                             </button>

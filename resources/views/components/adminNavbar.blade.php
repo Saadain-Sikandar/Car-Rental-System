@@ -33,7 +33,7 @@
             <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
 
                 <!-- Center Heading -->
-                <h4 class="text-warning fw-bold text-center mb-0 mx-auto">Admin Dashboard</h4>
+                <h4 class="text-warning fw-bold text-center mb-0 mx-auto">Admin Panel</h4>
 
                 <!-- Right Links -->
                 <ul class="navbar-nav align-items-lg-center">

@@ -8,27 +8,27 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {
+    // Display Data from DB 
     public function home()
     {
         $cars = Car::all();
-        return view('Admin.adminhome',compact('cars'));
+        return view('Admin.adminhome', compact('cars'));
     }
 
-    // Fetching  Data from DB 
     public function carList()
     {
         $cars = Car::all();
-        return view('Admin.admincarlist',compact('cars'));
+        return view('Admin.admincarlist', compact('cars'));
     }
 
-    // fetching ends 
+    // Display ends 
 
+    // StoreCar In DB 
     public function addCar()
     {
         return view('Admin.adminaddcar');
     }
-
-    // StoreCar In DB 
+    // DB 
     public function storeCar(Request $request)
     {
         $request->validate([
@@ -36,7 +36,7 @@ class AdminController extends Controller
             'make'   => 'required',
             'model'  => 'required',
             'year'   => 'required|numeric',
-            'color'  => 'nullable|string',
+            'color'  => 'required|string',
             'price'  => 'required|numeric',
             'carno'  => 'required',
             'image'  => 'nullable|image|mimes:jpg,jpeg,png',
@@ -62,11 +62,57 @@ class AdminController extends Controller
 
         Car::create($data);
 
-        Alert::success('success','Car Added Successfully!');
+        Alert::success('success', 'Car Added Successfully!');
         return redirect()->route('Admin.admincarlist');
     }
 
     // Storing ends 
+
+    // Getting and editing data 
+
+    public function editCar($id)
+    {
+
+        $cars = Car::findOrFail($id);
+        return view('Admin.adminEditCar', compact('cars'));
+    }
+
+    public function updateCar(Request $request,  $id)
+    {
+
+        $request->validate([
+
+            'name' => 'required',
+            'make' => 'required',
+            'model' => 'required',
+            'year' => 'required|numeric',
+            'color' => 'required|string',
+            'price' => 'required|numeric',
+            'carno' => 'required',
+            'Desc' => 'required|string',
+            'image' => 'nullable|mimes:jpg,jpeg,Png',
+
+        ]);
+
+        $car = Car::findOrFail($id);
+        $data = $request->only(['name', 'make', 'model', 'year', 'color', 'price', 'carno', 'Desc']);
+
+        // if image exists
+
+        if ($request->hasFile('image')) {
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('car_images'), $imageName);
+            $data['image'] = $imageName;
+        }
+
+        $car->update($data);
+
+        Alert::success('success', 'Car info update Successfully');
+        return redirect()->route('Admin.admincarlist');
+    }
+
+    // editing ends 
+
 
     public function info()
     {

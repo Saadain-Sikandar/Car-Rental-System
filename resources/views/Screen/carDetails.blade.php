@@ -25,7 +25,7 @@
     @include('components.footer')
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         // getting selected car detail  from localStorage
         const car = JSON.parse(localStorage.getItem("selectedCar"));
@@ -90,9 +90,18 @@
             if (!exists) {
                 cart.push(car);
                 localStorage.setItem("cart", JSON.stringify(cart));
-                alert(`${car.name} added to cart successfully!`);
+                Swal.fire({
+                    title: `${car.name} added to cart successfully!`,
+                    icon: "success",
+                    draggable: true
+                });
             } else {
-                alert(`${car.name} is already in your cart.`);
+                Swal.fire({
+                    title: `${car.name} is already in your cart!`,
+                    icon: "info",
+                    timer: 1500,
+                    showConfirmButton: false
+                });
             }
         }
     </script>
