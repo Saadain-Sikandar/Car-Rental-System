@@ -9,6 +9,8 @@ class Company_info extends Model
 {
     use HasFactory;
 
+    protected $table = 'company_info';
+
     protected $fillable = [
 
         'city',
@@ -17,5 +19,4 @@ class Company_info extends Model
         'contact',
 
     ];
-    
 }

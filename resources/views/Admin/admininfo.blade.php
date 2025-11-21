@@ -41,22 +41,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- dummy data  -->
                     <tr>
-                        <td>1</td>
-                        <td>Karachi</td>
-                        <td>123 Main Street</td>
-                        <td>info@carlink.com</td>
-                        <td>+92 300 1234567</td>
-                        <td>
-                            <button class="btn btn-primary btn-sm">
+                        @foreach($info as $info)
+                        <td>{{$info->id}}</td>
+                        <td>{{$info->city}}</td>
+                        <td>{{$info->address}}</td>
+                        <td>{{$info->email}}</td>
+                        <td>{{$info->contact}}</td>
+                        <td class="d-flex justify-content-center align-items-center gap-2" >
+                         <a href="{{ route('admin.EditCompanyInfo' , $info->id) }}">
+                               <button class="btn btn-primary btn-sm">
                                 <i class="fa-solid fa-edit"></i> Edit
                             </button>
-                            <button class="btn btn-danger btn-sm">
-                                <i class="fa-solid fa-trash"></i> Delete
-                            </button>
+                         </a>
+                            <form action="{{ route('admin.DeleteCompanyInfo', $info->id) }}" method="POST"
+                                onsubmit="return confirm ('Are you sure You want to delete this info?')">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-sm btn-danger">
+                                    <i class="fa-solid fa-trash"></i> Delete
+                                </button>
+                            </form>
                         </td>
-                    </tr>
+                        </tr>
+                        @endforeach
                 </tbody>
             </table>
         </div>
@@ -64,5 +72,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+<!-- Sweet Alert  -->
+@include('sweetalert::alert')
+
 
 </html>

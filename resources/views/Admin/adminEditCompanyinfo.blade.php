@@ -20,32 +20,33 @@
     <!-- Heading -->
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h3 class="fw-bold text-warning mb-0">
-        <i class="fa-solid fa-circle-info me-2"></i>Add New Info 
+        <i class="fa-solid fa-circle-info me-2"></i>Edit Company Info 
       </h3>
     </div>
 
     <!-- Info Form -->
     <div class="card shadow p-4 w-50 ">
-      <form action="{{ route('admin.AddCompanyinfo') }}" method="POST">
+      <form action="{{ route('admin.updateCompanyinfo' , $info->id) }}" method="POST">
         @csrf
+        @method('PUT')
         <div class="mb-3">
           <label for="city" class="form-label fw-bold">City</label>
-          <input type="text" class="form-control" id="city" name="city" placeholder="Enter city" required>
+          <input type="text" class="form-control" id="city" name="city"  value="{{$info->city}}" placeholder="Enter city" required>
         </div>
 
         <div class="mb-3">
           <label for="address" class="form-label fw-bold">Address</label>
-          <input type="text" class="form-control" id="address" name="address" placeholder="Enter address" required>
+          <input type="text" class="form-control" id="address" name="address"  value="{{$info->address}}" placeholder="Enter address" required>
         </div>
 
         <div class="mb-3">
           <label for="email" class="form-label fw-bold">Email</label>
-          <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+          <input type="email" class="form-control" id="email" name="email"  value="{{$info->email}}" placeholder="Enter email" required>
         </div>
 
         <div class="mb-3">
           <label for="contact" class="form-label fw-bold">Contact</label>
-          <input type="number" class="form-control" id="contact" name="contact" placeholder="Enter contact number" required>
+          <input type="number" class="form-control" id="contact" name="contact"  value="{{$info->contact}}" placeholder="Enter contact number" required>
         </div>
 
         <div class="text-end">

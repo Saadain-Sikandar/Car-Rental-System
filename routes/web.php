@@ -22,11 +22,20 @@ Route::prefix('Admin')->group(function () {
     Route::get('/adminaddcar', [AdminController::class, 'addCar'])->name('Admin.adminaddcar');
     Route::get('/admininfo', [AdminController::class, 'info'])->name('Admin.admininfo');
     Route::get('/adminInfoForm', [AdminController::class, 'infoForm'])->name('Admin.adminInfoForm');
+    // DB 
     Route::POST('/admin/store-car', [AdminController :: class, 'storecar'])->name('admin.storecar');
     Route::get('/admin/edit/car/{id}',[AdminController :: class,'editCar'])->name('admin.editCar');
     Route::put('/admin/update/car/{id}' ,[AdminController:: class, 'updateCar'])->name('admin.updateCar');
-    Route::delete('admin/delete/car/{id}',[AdminController:: class, 'DeleteCars'])->name('admin.Deletecars');
+    Route::delete('/admin/delete/car/{id}',[AdminController:: class, 'DeleteCars'])->name('admin.Deletecars');
+    Route::POST('/admin/companyinfo', [AdminController:: class, 'AddCompanyinfo'])->name('admin.AddCompanyinfo');
+    Route::get('/admin/edit/CompanyInfo/{id}',[AdminController :: class,'EditCompanyInfo'])->name('admin.EditCompanyInfo');
+    Route::put('/admin/update/CompanyInfo/{id}' ,[AdminController:: class, 'updateCompanyinfo'])->name('admin.updateCompanyinfo');
+    Route::delete('/admin/Delete/ComapnyInfo/{id}',[AdminController:: class, 'DeleteCompanyInfo'])->name('admin.DeleteCompanyInfo');
+
+
+
 });
+
 // auth 
 Route::get('/auth/login', [AuthController::class, 'login'])->name('auth.login');
 Route::get('/auth/signup', [AuthController::class, 'signup'])->name('auth.signup');

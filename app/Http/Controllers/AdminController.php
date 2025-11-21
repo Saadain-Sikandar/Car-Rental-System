@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Models\Company_info;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -101,7 +102,7 @@ class AdminController extends Controller
         ]);
 
         $car = Car::findOrFail($id);
-        $data = $request->only(['name', 'make', 'model', 'year', 'color', 'price', 'carno', 'Desc','status']);
+        $data = $request->only(['name', 'make', 'model', 'year', 'color', 'price', 'carno', 'Desc', 'status']);
 
         // if image exists
 
@@ -131,19 +132,104 @@ class AdminController extends Controller
         }
         $car->delete();
 
-        Alert::success('Deleted','Car Info Deleted Successfully!');
+        Alert::success('Deleted', 'Car Info Deleted Successfully!');
         return redirect()->route('Admin.admincarlist');
     }
-
     // Delete cars end 
 
+    // displaying info 
     public function info()
     {
-        return view('Admin.admininfo');
+        try {
+            $info = Company_info::all();
+            return view('Admin.admininfo', compact('info'));
+        } catch (\Exception $e) {
+            echo ($e->getmessage());
+        }
     }
+    // displaying info ends 
 
+
+    // Adding company info 
     public function infoForm()
     {
         return view('Admin.adminInfoForm');
     }
+
+    public function AddCompanyinfo(Request $request)
+    {
+
+        try {
+            $request->validate([
+
+                'city' => 'required|string',
+                'address' => 'required|string',
+                'email' => 'required|email|string',
+                'contact' => 'required|numeric'
+
+            ]);
+
+            $data = [
+
+                'city' => $request->city,
+                'address' => $request->address,
+                'email' => $request->email,
+                'contact' => $request->contact,
+            ];
+            Company_info::create($data);
+            Alert::success('success', 'Info Added Successfully!');
+            return redirect()->route('Admin.admininfo');
+        } catch (\Exception $e) {
+            echo ($e->getMessage());
+        }
+    }
+    // adding companyinfo ends 
+
+    // Get & Edit company info
+
+    public function EditCompanyInfo($id)
+    {
+
+        $info = Company_info::findorFail($id);
+        return view('Admin.adminEditCompanyinfo', compact('info'));
+    }
+
+    public function updateCompanyinfo(Request $request, $id)
+    {
+
+        try {
+            $request->validate([
+
+                'city' => 'required|string',
+                'address' => 'required|string',
+                'email' => 'required|email|string',
+                'contact' => 'required|numeric',
+            ]);
+
+            $info = Company_info::findOrFail($id);
+            $data = $request->only(['city', 'address', 'email', 'contact']);
+
+            $info->update($data);
+            Alert::success('success', 'Company info updated Successfully!');
+            return redirect()->route('Admin.admininfo');
+        } catch (\Exception $e) {
+            echo ($e->getmessage());
+        }
+    }
+    // Get & Edit company info ends 
+
+    // Delete Company Info 
+
+    public function DeleteCompanyInfo($id)
+    {
+
+        $info = Company_info::findorFail($id);
+
+        $info->delete();
+
+        Alert::success('success', 'Info Deleted Successfully!');
+        return redirect()->route('Admin.admininfo');
+    }
+      // Delete Company Info ends
+
 }
