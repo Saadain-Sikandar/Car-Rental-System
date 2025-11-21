@@ -45,6 +45,7 @@
                     <div class="card-body text-center">
                         <h5 class="fw-bold bg-black text-white p-1">{{$car->model}}</h5>
                         <p class="bg-black text-white p-1">PKR {{$car->price}} /day</p>
+                        <p class="mt-5  p-1 fw-bolder bg-black text-white text-left">Status: {{$car->status}}</p>
                     </div>
                 </div>
             </div>

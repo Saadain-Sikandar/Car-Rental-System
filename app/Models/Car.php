@@ -19,5 +19,6 @@ class Car extends Model
         'carno',
         'Desc',
         'image',
+        'status'
     ];
 }

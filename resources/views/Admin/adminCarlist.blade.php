@@ -32,6 +32,7 @@
                         <th>Car No</th>
                         <th>Image (Path)</th>
                         <th>Price/Day</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -54,13 +55,18 @@
                             @endif
                         </td>
                         <td>{{$car->price}}/PKR</td>
-                        <td>
+                        <td>{{$car->status}}</td>
+                        <td class="d-flex justify-content-center align-items-center">
                             <a href="{{ route('admin.editCar', $car->id) }}"> <button class="btn btn-sm btn-primary me-1">
                                     <i class="fa-solid fa-pen-to-square"></i> Edit </button></a>
-
-                            <button class="btn btn-sm btn-danger">
-                                <i class="fa-solid fa-trash"></i> Delete
-                            </button>
+                            <form action="{{ route('admin.Deletecars', $car->id) }}" method="POST"
+                                onsubmit="return confirm ('Are you sure You want to delete This Car info?')">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-sm btn-danger">
+                                    <i class="fa-solid fa-trash"></i> Delete
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach

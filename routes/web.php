@@ -25,6 +25,7 @@ Route::prefix('Admin')->group(function () {
     Route::POST('/admin/store-car', [AdminController :: class, 'storecar'])->name('admin.storecar');
     Route::get('/admin/edit/car/{id}',[AdminController :: class,'editCar'])->name('admin.editCar');
     Route::put('/admin/update/car/{id}' ,[AdminController:: class, 'updateCar'])->name('admin.updateCar');
+    Route::delete('admin/delete/car/{id}',[AdminController:: class, 'DeleteCars'])->name('admin.Deletecars');
 });
 // auth 
 Route::get('/auth/login', [AuthController::class, 'login'])->name('auth.login');

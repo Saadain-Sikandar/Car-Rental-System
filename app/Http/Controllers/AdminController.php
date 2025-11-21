@@ -41,6 +41,8 @@ class AdminController extends Controller
             'carno'  => 'required',
             'image'  => 'nullable|image|mimes:jpg,jpeg,png',
             'Desc'   => 'required|string',
+            'status' => 'required',
+
         ]);
 
         $data = [
@@ -52,6 +54,8 @@ class AdminController extends Controller
             'price' => $request->price,
             'carno' => $request->carno,
             'Desc'  => $request->Desc,
+            'status' => $request->status,
+
         ];
 
         if ($request->hasFile('image')) {
@@ -91,11 +95,13 @@ class AdminController extends Controller
             'carno' => 'required',
             'Desc' => 'required|string',
             'image' => 'nullable|mimes:jpg,jpeg,Png',
+            'status' => 'required',
+
 
         ]);
 
         $car = Car::findOrFail($id);
-        $data = $request->only(['name', 'make', 'model', 'year', 'color', 'price', 'carno', 'Desc']);
+        $data = $request->only(['name', 'make', 'model', 'year', 'color', 'price', 'carno', 'Desc','status']);
 
         // if image exists
 
@@ -107,12 +113,29 @@ class AdminController extends Controller
 
         $car->update($data);
 
-        Alert::success('success', 'Car info update Successfully');
+        Alert::success('success', 'Car info updated Successfully');
         return redirect()->route('Admin.admincarlist');
     }
 
     // editing ends 
 
+    // Deleting Cars 
+
+    public function DeleteCars($id)
+    {
+
+        $car = Car::findorFail($id);
+        // Delete image if exists
+        if ($car->image && file_exists(public_path('car_images/' . $car->image))) {
+            unlink(public_path('car_images/' . $car->image));
+        }
+        $car->delete();
+
+        Alert::success('Deleted','Car Info Deleted Successfully!');
+        return redirect()->route('Admin.admincarlist');
+    }
+
+    // Delete cars end 
 
     public function info()
     {

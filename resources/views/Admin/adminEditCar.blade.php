@@ -93,11 +93,11 @@
                         <label class="form-label fw-bold">Current Image</label><br>
 
                         @if($cars->image)
-                            <img src="{{ asset('car_images/'.$cars->image) }}"
-                                 alt="Car Image" class="img-fluid rounded mb-2"
-                                 style="max-height:150px;">
+                        <img src="{{ asset('car_images/'.$cars->image) }}"
+                            alt="Car Image" class="img-fluid rounded mb-2"
+                            style="max-height:150px;">
                         @else
-                            <p class="text-muted">No image uploaded</p>
+                        <p class="text-muted">No image uploaded</p>
                         @endif
                     </div>
 
@@ -106,6 +106,22 @@
                         <label class="form-label fw-bold">Replace Image</label>
                         <input type="file" name="image" class="form-control" accept="image/*">
                         <small class="text-secondary">Upload only if you want to replace the old image.</small>
+                    </div>
+
+                    <!-- Availability  -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Availability</label>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="avail1" value="Available" required>
+                            <label class="form-check-label" for="avail1">Available</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="avail2" value="Not Available">
+                            <label class="form-check-label" for="avail2">Not Available</label>
+                        </div>
+
                     </div>
 
                     <!-- Submit Button -->

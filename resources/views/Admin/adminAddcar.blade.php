@@ -84,6 +84,20 @@
                         <input type="file" name="image" class="form-control" accept="image/*">
                         <small class="text-secondary">Accepted formats: jpg, jpeg, png</small>
                     </div>
+                    <!-- Availablity  -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Availability</label>
+
+                        <div class="form-check">
+                            <input checked class="form-check-input" type="radio" name="status" id="avail1" value="Available" required>
+                            <label class="form-check-label" for="avail1">Available</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="status" id="avail2" value="Not Available">
+                            <label class="form-check-label" for="avail2">Not Available</label>
+                        </div>
+                    </div>
 
 
                     <!-- Submit Button -->
