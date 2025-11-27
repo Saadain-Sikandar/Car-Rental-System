@@ -14,6 +14,9 @@ Route::get('/allCars', [ScreenController::class, 'allCars'])->name('allCars');
 Route::get('/carDetails',[ScreenController::class,'carDetails']) ->name('carDetails');
 Route::get('/checkout',[ScreenController::class,'checkOut']) ->name('checkOut');
 Route::get('/myRentals',[ScreenController::class,'myRentals'])->name('myRentals');
+// DB
+Route::get('/car/details/{id}',[ScreenController::class, 'carinfoDetails'])->name('car-details');
+
 
 // Admin
 Route::prefix('Admin')->group(function () {

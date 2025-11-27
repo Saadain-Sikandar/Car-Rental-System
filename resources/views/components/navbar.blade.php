@@ -38,7 +38,7 @@
                         <a class="nav-link text-warning" href="{{ route('aboutus') }}">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-warning" href="{{ route('allCars') }}">Rent Car</a>
+                        <a class="nav-link text-warning" href="{{ route('allCars') }}">Our Cars</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('myRentals') }}" class="nav-link text-warning">My Rentals</a>
