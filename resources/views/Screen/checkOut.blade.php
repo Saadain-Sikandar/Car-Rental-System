@@ -97,6 +97,7 @@
                                         <th>Image</th>
                                         <th>Car Name</th>
                                         <th>Model</th>
+                                        <th>color</th>
                                         <th>Year</th>
                                         <th>Price</th>
                                         <th>Action</th>
@@ -110,6 +111,7 @@
                         <td><img src="${car.image}" width="100"></td>
                         <td>${car.name}</td>
                         <td>${car.model}</td>
+                        <td>${car.color}</td>
                         <td>${car.year}</td>
                         <td>${car.price}</td>
                         <td><button class="btn btn-danger btn-sm" onclick="removeFromCart(${index})">Remove</button></td>

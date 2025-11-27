@@ -78,7 +78,6 @@
       
         // handling Back 
         function HandleBack() {
-            localStorage.removeItem("selectedcar");
             window.location.href = "{{ route('allCars') }}";
         }
 

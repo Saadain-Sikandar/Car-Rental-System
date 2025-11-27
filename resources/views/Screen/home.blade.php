@@ -97,7 +97,20 @@
                                 <a href="{{ route('car-details', $car->id) }}" class="btn btn-dark btn-sm">
                                     View Details
                                 </a>
-                                <button class="btn btn-warning btn-sm">
+                                <!-- for saving image in local storage   -->
+                                <?php
+                                $carImageUrl = asset('car_images/' . $car->image)
+                                ?>
+                                <button class="btn btn-warning btn-sm"
+                                    onclick="addToCart(
+                                     '{{$car->id}}',
+                                     '{{$car->name}}',
+                                     '{{$car->model}}',
+                                     '{{$car->year}}',
+                                     '{{$car->price}}',
+                                     '{{$carImageUrl}}',
+                                     '{{$car->color}}',
+                                )">
                                     <i class="fa-solid fa-cart-plus"></i> Add
                                 </button>
                             </div>
@@ -137,37 +150,36 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 
-<!-- <script>
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+<script>
+    function addToCart(id, name, model, year, price, image, color) {
 
-
-    function veiwCar(carid) {
-        const selectedCar = cars.find(c => c.id == carid.id);
-        localStorage.setItem('selectedCar', JSON.stringify(selectedCar));
-    }
-
-    function addToCart(id) {
-
-        const carToadd = cars.find(c => c.id == id);
-
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
         // checking duplicates 
         if (!cart.some(car => car.id === id)) {
-            cart.push(carToadd);
+            cart.push({
+                id,
+                model,
+                name,
+                year,
+                price,
+                image,
+                color,
+        });
             localStorage.setItem("cart", JSON.stringify(cart));
             Swal.fire({
-                title: `${carToadd.name} added to cart successfully!`,
+                title: `${name} added to cart successfully!`,
                 icon: "success",
                 draggable: true
             });
         } else {
             Swal.fire({
-                title: `${carToadd.name} is already in your cart!`,
+                title: `${name} is already in your cart!`,
                 icon: "info",
                 timer: 1500,
                 showConfirmButton: false
             });
         }
     }
-</script> -->
+</script>
 
 </html>

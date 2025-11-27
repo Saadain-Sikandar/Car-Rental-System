@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CarLink - All Cars</title>
+    <title>CarLink - Our Cars</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -48,6 +48,10 @@
                             <a href="{{ route('car-details' , $car->id) }}" class="btn btn-dark btn-sm">
                                 View Details
                             </a>
+                            <!-- for saving image in local storage  -->
+                            <?php
+                                $carImageUrl = asset('car_images/'. $car->image)
+                            ?>
                             <button class="btn btn-warning btn-sm"
                                 onclick="addToCart
                                 ('{{ $car->id }}',
@@ -55,7 +59,9 @@
                                 '{{ $car->model }}', 
                                 '{{ $car->year }}',
                                 '{{ $car->price }}',
-                                 '{{ asset('car_images/'.$car->image) }}')">
+                                '{{ $carImageUrl }}',
+                                '{{ $car->color }}'
+                                 )">
                                 <i class="fa-solid fa-cart-plus"></i> Add
                             </button>
                         </div>
@@ -75,18 +81,19 @@
 </body>
 
 <script>
-    function addToCart(id, name, model, year, price, image) {
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    function addToCart(id, name, model, year, price, image,color) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
         // Check for duplicates
         if (!cart.some(car => car.id === id)) {
             cart.push({
                 id,
                 name,
+                model,
+                year,
                 price,
                 image,
-                year,
-                model,
+                color
             });
             localStorage.setItem("cart", JSON.stringify(cart));
 
