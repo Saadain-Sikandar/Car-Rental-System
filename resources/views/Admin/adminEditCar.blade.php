@@ -113,7 +113,7 @@
                         <label class="form-label fw-bold">Availability</label>
 
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="status" id="avail1" value="Available" required>
+                            <input checked class="form-check-input" type="radio" name="status" id="avail1" value="Available" required>
                             <label class="form-check-label" for="avail1">Available</label>
                         </div>
 

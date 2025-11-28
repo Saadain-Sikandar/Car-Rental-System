@@ -23,8 +23,8 @@
                 <div class="card shadow-lg border-0">
                     <img src="{{ asset( 'car_images/'. $car->image) }} " class="card-img-top rounded-top" alt="{{$car->name}}" />
                     <div class="card-body">
-                        <h2 class="fw-bolder text-warning mb-3">{{$car->model}}</h2>
-                        <p class="text-muted mb-3"><span class="fw-bolder fs-5 " >Description: </span>{{$car->Desc}}</p>
+                        <h2 class="fw-bolder text-warning mb-3">{{$car->name}}</h2>
+                        <p class="text-muted mb-3"><span class="fw-bolder fs-5 ">Description: </span>{{$car->Desc}}</p>
 
                         <table class="table table-bordered text-start">
                             <thead class="table-dark text-center">
@@ -53,11 +53,28 @@
                                     <th>Price</th>
                                     <td>PKR {{$car->price}}/day</td>
                                 </tr>
+                                <tr>
+                                    <th>Status</th>
+                                    <td>{{$car->status}}</td>
+                                </tr>
                             </tbody>
                         </table>
-
+                        <!-- for saving image in local storage -->
+                        <?php
+                        $carImageUrl = asset('car_images/'. $car->image)
+                        ?>
                         <div class="text-center mt-4">
-                            <button class="btn btn-dark px-4">
+                            <button class="btn btn-dark px-4"
+                                onclick="addToCart(
+                            '{{$car->id}}',
+                            '{{$car->name}}',
+                            '{{$car->price}}',
+                            '{{$car->model}}',
+                            '{{$car->year}}',
+                            '{{$carImageUrl}}',
+                            '{{$car->color}}',
+                            '{{$car->status}}'
+                            )">
                                 <i class="fa-solid fa-cart-plus me-2"></i>Add to Cart
                             </button>
                             <button class="btn btn-outline-secondary ms-2" onclick="HandleBack()">
@@ -75,36 +92,53 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-      
         // handling Back 
         function HandleBack() {
             window.location.href = "{{ route('allCars') }}";
         }
 
         // Function to add selected car to cart
-        // function addToCart(car) {
-        //     let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        function addToCart(id, name, price, model, year, image, color, status) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            // Status Checking
+            if(status.toLowerCase() === 'not available'){
+                Swal.fire({
+                    title: `Selected Car is not available right now!`,
+                    icon: "error",
+                    draggable: true
+                });
+                return;
+            }
 
             // Check if the car is already in cart
-        //     const exists = cart.some(c => c.id === car.id);
+            const exists = cart.some(car => car.id === id);
 
-        //     if (!exists) {
-        //         cart.push(car);
-        //         localStorage.setItem("cart", JSON.stringify(cart));
-        //         Swal.fire({
-        //             title: `${car.name} added to cart successfully!`,
-        //             icon: "success",
-        //             draggable: true
-        //         });
-        //     } else {
-        //         Swal.fire({
-        //             title: `${car.name} is already in your cart!`,
-        //             icon: "info",
-        //             timer: 1500,
-        //             showConfirmButton: false
-        //         });
-        //     }
-        // }
+            if (!exists) {
+                cart.push({
+                    id,
+                    name,
+                    price,
+                    model,
+                    year,
+                    image,
+                    color
+                });
+                localStorage.setItem('cart', JSON.stringify(cart));
+                Swal.fire({
+                    title: `${name} added to cart successfully!`,
+                    icon: "success",
+                    draggable: true
+                });
+            } else {
+                Swal.fire({
+                    title: `${name} is already in your cart!`,
+                    icon: "info",
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            }
+        }
     </script>
 
 </body>

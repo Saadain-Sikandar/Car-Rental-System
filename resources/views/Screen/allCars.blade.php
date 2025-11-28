@@ -50,7 +50,7 @@
                             </a>
                             <!-- for saving image in local storage  -->
                             <?php
-                                $carImageUrl = asset('car_images/'. $car->image)
+                            $carImageUrl = asset('car_images/' . $car->image)
                             ?>
                             <button class="btn btn-warning btn-sm"
                                 onclick="addToCart
@@ -60,7 +60,8 @@
                                 '{{ $car->year }}',
                                 '{{ $car->price }}',
                                 '{{ $carImageUrl }}',
-                                '{{ $car->color }}'
+                                '{{ $car->color }}',
+                                '{{ $car->status }}'
                                  )">
                                 <i class="fa-solid fa-cart-plus"></i> Add
                             </button>
@@ -81,8 +82,18 @@
 </body>
 
 <script>
-    function addToCart(id, name, model, year, price, image,color) {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    function addToCart(id, name, model, year, price, image, color, status) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        if (status.toLowerCase() === 'not available') {
+            Swal.fire({
+                title: `Selected car is not available right now!`,
+                icon: "error",
+                timer: 1500,
+                showConfirmButton: false
+            });
+            return;
+        }
 
         // Check for duplicates
         if (!cart.some(car => car.id === id)) {
@@ -93,7 +104,7 @@
                 year,
                 price,
                 image,
-                color
+                color,
             });
             localStorage.setItem("cart", JSON.stringify(cart));
 

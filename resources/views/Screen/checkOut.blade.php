@@ -24,7 +24,7 @@
         <div class="card shadow-lg border-0">
             <div class="card-body">
                 <h4 class="fw-bold text-center text-warning mb-4">Renter Details</h4>
-                <form>
+                <form action="#" method="#">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Full Name</label>
@@ -36,11 +36,11 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Enter days</label>
-                            <input type="no" class="form-control" placeholder="Enter no of days to rent" required>
+                            <input type="number" class="form-control" placeholder="Enter no of days to rent" required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Contact</label>
-                            <input type="text" class="form-control" placeholder="03XX-XXXXXXX" required>
+                            <input type="number" class="form-control" placeholder="03XX-XXXXXXX" required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">CNIC</label>
@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="text-center mt-4">
-                        <button id="orderBtn" type="submit" class="btn btn-dark px-5 py-2 fw-semibold" onclick="OrderHandle()">
+                        <button id="orderBtn" class="btn btn-dark px-5 py-2 fw-semibold" onclick="OrderHandle(event)">
                             Place Order
                         </button>
                     </div>
@@ -75,18 +75,21 @@
     </div>
 
     @include('components.footer')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
 
-    <script>
-        const orderbtn = document.getElementById("orderBtn");
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const container = document.getElementById("cart-container");
+<script>
+    const orderbtn = document.getElementById("orderBtn");
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const container = document.getElementById("cart-container");
 
-        if (cart.length === 0) {
-            orderbtn.disabled = true;
-        }
+    if (cart.length === 0) {
+        orderbtn.disabled = true;
+    }
 
-        if (cart.length > 0) {
-            let carthtml = `
+    if (cart.length > 0) {
+        let carthtml = `
                 <div class="card shadow border-0 mb-4">
                     <div class="card-body">
                         <h4 class="fw-bold mb-3">Your Selected Cars</h4>
@@ -105,8 +108,8 @@
                                 </thead>
                                 <tbody>
             `;
-            cart.map((car, index) => {
-                carthtml += `
+        cart.map((car, index) => {
+            carthtml += `
                     <tr>
                         <td><img src="${car.image}" width="100"></td>
                         <td>${car.name}</td>
@@ -117,9 +120,9 @@
                         <td><button class="btn btn-danger btn-sm" onclick="removeFromCart(${index})">Remove</button></td>
                     </tr>
                 `;
-            });
+        });
 
-            carthtml += `
+        carthtml += `
                         </tbody>
                     </table>
                 </div>
@@ -127,23 +130,33 @@
         </div>
             `;
 
-            container.innerHTML = carthtml;
-        } else {
-            container.innerHTML = `<h5 class="text-center text-danger">Your cart is empty!</h5>`;
-        }
+        container.innerHTML = carthtml;
+    } else {
+        container.innerHTML = `<h5 class="text-center text-danger">Your cart is empty!</h5>`;
+    }
 
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            localStorage.setItem("cart", JSON.stringify(cart));
-            location.reload();
-        }
+    function removeFromCart(index) {
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        location.reload();
+    }
 
-        function OrderHandle() {
-            alert("Order placed Successfully!");
-            window.location.href = "{{ route('home') }}";
+    function OrderHandle(event) {
+
+        event.preventDefault();
+
+        Swal.fire({
+            title: "Order placed Successfully!",
+            html: ` <h3>Thank you for trusting our Rental Services!</h3>
+            <p>Check your <b>My Rentals</b> for rental details.</p>`,
+            icon: "success",
+            showConfirmButton: false,
+            timer: 3000
+        }).then(() => {
             localStorage.clear();
-        }
-    </script>
-</body>
+            window.location.href = "{{ route('home') }}";
+        });
+    }
+</script>
 
 </html>

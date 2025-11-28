@@ -110,6 +110,7 @@
                                      '{{$car->price}}',
                                      '{{$carImageUrl}}',
                                      '{{$car->color}}',
+                                     '{{$car->status}}'
                                 )">
                                     <i class="fa-solid fa-cart-plus"></i> Add
                                 </button>
@@ -151,9 +152,18 @@
 </body>
 
 <script>
-    function addToCart(id, name, model, year, price, image, color) {
+    function addToCart(id, name, model, year, price, image, color, status) {
 
         let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        if (status.toLowerCase() === 'not available') {
+            Swal.fire({
+                title: `Selected car is not available right now!`,
+                icon: "error",
+                timer: 1500,
+                showConfirmButton: false
+            });
+            return;
+        }
         // checking duplicates 
         if (!cart.some(car => car.id === id)) {
             cart.push({
@@ -164,7 +174,7 @@
                 price,
                 image,
                 color,
-        });
+            });
             localStorage.setItem("cart", JSON.stringify(cart));
             Swal.fire({
                 title: `${name} added to cart successfully!`,
