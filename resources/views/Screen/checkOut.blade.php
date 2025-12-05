@@ -24,39 +24,40 @@
         <div class="card shadow-lg border-0">
             <div class="card-body">
                 <h4 class="fw-bold text-center text-warning mb-4">Renter Details</h4>
-                <form action="#" method="#">
+                <form action="{{ route('place-order') }}" method="POST">
+                    @csrf
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Full Name</label>
-                            <input type="text" class="form-control" placeholder="Enter your name" required>
+                            <input type="text" class="form-control" name="fullname" placeholder="Enter your name" required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Email</label>
-                            <input type="email" class="form-control" placeholder="Enter your email" required>
+                            <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Enter days</label>
-                            <input type="number" class="form-control" placeholder="Enter no of days to rent" required>
+                            <input type="number" class="form-control" name="days" placeholder="Enter no of days to rent" required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Contact</label>
-                            <input type="number" class="form-control" placeholder="03XX-XXXXXXX" required>
+                            <input type="number" class="form-control" name="contact"  placeholder="03XX-XXXXXXX" required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">CNIC</label>
-                            <input type="text" class="form-control" placeholder="XXXXX-XXXXXXX-X" required>
+                            <input type="text" class="form-control" name="cnic"  placeholder="XXXXX-XXXXXXX-X" required>
                         </div>
                         <div class="col-12">
                             <label class="form-label fw-semibold">Address</label>
-                            <input type="text" class="form-control" placeholder="House #, Street, City" required>
+                            <input type="text" class="form-control" name="address" placeholder="House #, Street, City" required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">City</label>
-                            <input type="text" class="form-control" required>
+                            <input type="text" class="form-control" name="city" required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Payment Method</label>
-                            <select class="form-select" required>
+                            <select class="form-select" name="payment_method"  required>
                                 <option value="">Select payment method</option>
                                 <option value="Cash on Delivery">Cash on Delivery</option>
                                 <option value="Bank Transfer">Bank Transfer</option>
