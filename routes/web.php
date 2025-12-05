@@ -44,6 +44,11 @@ Route::prefix('Admin')->group(function () {
 // auth 
 Route::get('/auth/login', [AuthController::class, 'login'])->name('auth.login');
 Route::get('/auth/signup', [AuthController::class, 'signup'])->name('auth.signup');
+Route::POST('/auth/register/user', [AuthController::class, 'RegisterUser'])->name('auth.registeruser');
+Route::POST('/auth/login/user', [AuthController::class, 'LoginUser'])->name('auth.loginuser');
+Route::POST('/logout/user',[AuthController::class, 'LogoutUser'])->name('logoutuser');
+
+
 
 
 

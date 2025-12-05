@@ -24,7 +24,7 @@
             </div>
 
             <!-- Signup Form -->
-            <form method="POST" action="{{ route('auth.signup') }}">
+            <form method="POST" action="{{ route('auth.registeruser') }}">
                 @csrf
 
                 <!-- Username -->
@@ -93,6 +93,7 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    @include('sweetalert::alert')
 </body>
 
 </html>

@@ -230,6 +230,6 @@ class AdminController extends Controller
         Alert::success('success', 'Info Deleted Successfully!');
         return redirect()->route('Admin.admininfo');
     }
-      // Delete Company Info ends
+    // Delete Company Info ends
 
 }
