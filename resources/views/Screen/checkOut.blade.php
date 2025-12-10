@@ -24,7 +24,7 @@
         <div class="card shadow-lg border-0">
             <div class="card-body">
                 <h4 class="fw-bold text-center text-warning mb-4">Renter Details</h4>
-                <form action="{{ route('place-order') }}" method="POST">
+                <form id="checkoutForm" action="{{ route('place-order') }}" method="POST">
                     @csrf
                     <div class="row g-3">
                         <div class="col-md-6">
@@ -41,11 +41,11 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Contact</label>
-                            <input type="number" class="form-control" name="contact"  placeholder="03XX-XXXXXXX" required>
+                            <input type="number" class="form-control" name="contact" placeholder="03XX-XXXXXXX" required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">CNIC</label>
-                            <input type="text" class="form-control" name="cnic"  placeholder="XXXXX-XXXXXXX-X" required>
+                            <input type="text" class="form-control" name="cnic" placeholder="XXXXX-XXXXXXX-X" required>
                         </div>
                         <div class="col-12">
                             <label class="form-label fw-semibold">Address</label>
@@ -57,14 +57,14 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Payment Method</label>
-                            <select class="form-select" name="payment_method"  required>
+                            <select class="form-select" name="payment_method" required>
                                 <option value="">Select payment method</option>
                                 <option value="Cash on Delivery">Cash on Delivery</option>
                                 <option value="Bank Transfer">Bank Transfer</option>
                             </select>
                         </div>
                     </div>
-
+                    <input type="hidden" name="cart_data" id="cart_data">
                     <div class="text-center mt-4">
                         <button id="orderBtn" class="btn btn-dark px-5 py-2 fw-semibold" onclick="OrderHandle(event)">
                             Place Order
@@ -84,6 +84,7 @@
     const orderbtn = document.getElementById("orderBtn");
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     const container = document.getElementById("cart-container");
+
 
     if (cart.length === 0) {
         orderbtn.disabled = true;
@@ -143,19 +144,21 @@
     }
 
     function OrderHandle(event) {
-
         event.preventDefault();
 
+        const form = document.getElementById("checkoutForm"); // get the form
+        document.getElementById("cart_data").value = JSON.stringify(cart); // store in hidden input
+
         Swal.fire({
-            title: "Order placed Successfully!",
-            html: ` <h3>Thank you for trusting our Rental Services!</h3>
-            <p>Check your <b>My Rentals</b> for rental details.</p>`,
             icon: "success",
-            showConfirmButton: false,
-            timer: 3000
+            title: "Order placed Successfully!",
+            html: `<h3>Thank you for trusting our Rental Services!</h3>
+               <p>Check your <b>My Rentals</b> for rental details.</p>`,
+            timer: 2000,
+            showConfirmButton: false
         }).then(() => {
+            form.submit(); 
             localStorage.clear();
-            window.location.href = "{{ route('home') }}";
         });
     }
 </script>

@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class customer_order extends Model
+class customer_orders extends Model
 {
-    use HasFactory;    
+    use HasFactory;
 
+    protected $table = 'customer_orders';
     protected $fillable = [
         'fullname',
         'email',
@@ -17,9 +18,7 @@ class customer_order extends Model
         'address',
         'city',
         'days',
-        'payment_method'
-
+        'payment_method',
+        'order_data',
     ];
-
-
 }

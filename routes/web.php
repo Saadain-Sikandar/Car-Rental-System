@@ -16,7 +16,7 @@ Route::get('/checkout',[ScreenController::class,'checkOut']) ->name('checkOut');
 Route::get('/myRentals',[ScreenController::class,'myRentals'])->name('myRentals');
 // DB
 Route::get('/car/details/{id}',[ScreenController::class, 'carinfoDetails'])->name('car-details');
-Route::POST('/placeorder}',[ScreenController::class, 'placeOrder'])->name('place-order');
+Route::post('/placeorder', [ScreenController::class, 'placeOrder'])->name('place-order');
 
 
 

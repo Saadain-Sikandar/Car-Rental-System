@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
-use App\Models\customer_order;
+use App\Models\customer_orders;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ScreenController extends Controller
 {
@@ -48,32 +49,42 @@ class ScreenController extends Controller
 
     public function placeOrder(Request $request)
     {
+        try {
+            $request->validate([
+                'fullname' => 'required',
+                'email' => 'required|email',
+                'contact' => 'required',
+                'cnic' => 'required',
+                'address' => 'required',
+                'city' => 'required',
+                'days' => 'required|integer',
+                'payment_method' => 'required',
+                'cart_data' => 'required',
+            ]);
 
-        $request->validate([
+            $JsonCart = $request->cart_data;
 
-            'fullname' => 'required',
-            'email' => 'reqired|email',
-            'contact' => 'required',
-            'cnic' => 'required',
-            'address' => 'required',
-            'city' => 'required',
-            'days' => 'required|interger',
-            'payment_method' => 'required',
-        ]);
+            $data = [
+                'fullname' => $request->fullname,
+                'email' => $request->email,
+                'contact' => $request->contact,
+                'cnic' => $request->cnic,
+                'address' => $request->address,
+                'city' => $request->city,
+                'days' => $request->days,
+                'payment_method' => $request->payment_method,
+                'order_data' => $JsonCart, // store cart JSON
+            ];
 
-        $data = ([
-            'fullname' => $request->fullname,
-            'email' => $request->email,
-            'contact' => $request->contact,
-            'cnic' => $request->cnic,
-            'address' => $request->address,
-            'city' => $request->city,
-            'days' => $request->days,
-            'payment_method' => $request->payment_method,
-        ]);
+            customer_orders::create($data);
 
-        $order =  customer_order::create($data);
+            Alert::success('Success', 'Order placed Successfully!');
+            return redirect()->route('home');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
     }
+
 
 
 
