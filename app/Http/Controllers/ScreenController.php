@@ -3,22 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Models\Company_info;
 use App\Models\customer_orders;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ScreenController extends Controller
 {
+    // Home 
     public function home()
     {
         $cars = Car::all();
         return view('Screen.home', compact('cars'));
     }
-
+    // About us 
     public function aboutUs()
     {
-        return view('Screen.aboutus');
+        $info = Company_info::all();
+        return view('Screen.aboutus', compact('info'));
     }
+
     // All cars 
     public function allCars()
     {
@@ -85,9 +89,6 @@ class ScreenController extends Controller
             dd($e->getMessage());
         }
     }
-
-
-
 
     // my Rentals 
     public function myRentals()

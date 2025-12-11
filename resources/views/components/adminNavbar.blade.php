@@ -55,9 +55,12 @@
 
                     <!-- Divider -->
                     <li class="nav-item d-none d-lg-block mx-2 text-secondary">|</li>
-                    <li class="nav-item">
-                        <a class="btn btn-warning btn-sm text-dark fw-bold ms-lg-2" href="#">Sign out</a>
-                    </li>
+                    <form action="{{ route('logoutuser') }}" method="POST">
+                        @csrf
+                        <li class="nav-item">
+                            <button class="btn btn-warning fw-bold " type="submit" >Sign Out</button>
+                        </li>
+                    </form>
                 </ul>
             </div>
         </div>

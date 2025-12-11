@@ -35,7 +35,7 @@ class AuthController extends Controller
 
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' =>Hash::make($request->password),
+                'password' => Hash::make($request->password),
 
             ];
 
@@ -75,12 +75,28 @@ class AuthController extends Controller
             ]);
 
             $credentials = $request->only('email', 'password');
+            // Admin credentials
+            $adminCredentials = [
+                'email' => 'adminCL@gmail.com',
+                'password' => 'adminCL.123'
+            ];
+            // Checking Admin 
+            if (
+                $request->email === $adminCredentials['email'] &&
+                $request->password === $adminCredentials['password']
+            ) {
+
+                Auth::loginUsingId(1);
+                Alert::success('success', 'Login Successfull!');
+                return redirect()->route('Admin.adminhome');
+            }
+            // checking Admin ends 
             if (Auth::attempt($credentials)) {
                 $user = Auth::user();
                 Alert::success('success', 'Login Successfull!');
                 return redirect()->route('home');
             } else {
-                Alert::error('error', 'Login Failed!');
+                Alert::error('error', 'Login Failed Incorrect Email/Password!');
                 return redirect()->route('auth.login');
             }
         } catch (\Exception $e) {

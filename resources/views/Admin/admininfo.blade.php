@@ -48,12 +48,12 @@
                         <td>{{$info->address}}</td>
                         <td>{{$info->email}}</td>
                         <td>{{$info->contact}}</td>
-                        <td class="d-flex justify-content-center align-items-center gap-2" >
-                         <a href="{{ route('admin.EditCompanyInfo' , $info->id) }}">
-                               <button class="btn btn-primary btn-sm">
-                                <i class="fa-solid fa-edit"></i> Edit
-                            </button>
-                         </a>
+                        <td class="d-flex justify-content-center align-items-center gap-2">
+                            <a href="{{ route('admin.EditCompanyInfo' , $info->id) }}">
+                                <button class="btn btn-primary btn-sm">
+                                    <i class="fa-solid fa-edit"></i> Edit
+                                </button>
+                            </a>
                             <form action="{{ route('admin.DeleteCompanyInfo', $info->id) }}" method="POST"
                                 onsubmit="return confirm ('Are you sure You want to delete this info?')">
                                 @csrf
@@ -63,8 +63,8 @@
                                 </button>
                             </form>
                         </td>
-                        </tr>
-                        @endforeach
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -74,6 +74,5 @@
 </body>
 <!-- Sweet Alert  -->
 @include('sweetalert::alert')
-
 
 </html>
