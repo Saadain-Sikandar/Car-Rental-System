@@ -240,7 +240,7 @@ class AdminController extends Controller
     {
 
         $orders = customer_orders::all();
-
+        
         return view('Admin.adminOrderDetails', compact('orders'));
     }
 
@@ -248,7 +248,7 @@ class AdminController extends Controller
     {
 
         $orders = customer_orders::findOrFail($id);
-        return view('Admin.EditOrderStatus', compact('orders'));
+        return view('Admin.adminEditOrderStatus', compact('orders'));
     }
 
     public function UpdateOrderStatus(Request $request, $id)

@@ -37,8 +37,8 @@ Route::prefix('Admin')->group(function () {
     Route::get('/admin/edit/CompanyInfo/{id}',[AdminController :: class,'EditCompanyInfo'])->name('admin.EditCompanyInfo');
     Route::put('/admin/update/CompanyInfo/{id}' ,[AdminController:: class, 'updateCompanyinfo'])->name('admin.updateCompanyinfo');
     Route::delete('/admin/Delete/ComapnyInfo/{id}',[AdminController:: class, 'DeleteCompanyInfo'])->name('admin.DeleteCompanyInfo');
-    Route::get('/admin/edit/order/status/{id}',[AdminController::class,'EditOrderStatus'])->name('admin.EditOrderStatus');
-    Route::put('/admin/update/orderstatus/{id}',[AdminController::class,'UpdateOrderStatus'])->name('updateOrderStatus');
+    Route::get('/admin/edit/order/status/{id}',[AdminController::class,'EditOrderStatus'])->name('admin.adminEditOrderStatus');
+    Route::put('/admin/update/orderstatus/{id}',[AdminController::class,'UpdateOrderStatus'])->name('admin.adminupdateOrderStatus');
 
 
 

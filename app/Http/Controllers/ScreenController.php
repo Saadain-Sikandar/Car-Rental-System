@@ -74,6 +74,7 @@ class ScreenController extends Controller
                 'days' => $request->days,
                 'payment_method' => $request->payment_method,
                 'order_data' => $JsonCart, // store cart JSON
+                'order_status' => 'Pending'
             ];
 
             customer_orders::create($data);
