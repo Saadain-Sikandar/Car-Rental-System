@@ -47,6 +47,9 @@
                         <a class="nav-link text-warning" href="{{route('Admin.adminaddcar')}}">Add Cars</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link text-warning" href="{{route('Admin.adminOrderDetails')}}">Order Details</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link text-warning" href="{{route('Admin.admininfo')}}">Contact Info</a>
                     </li>
 

@@ -20,5 +20,6 @@ class customer_orders extends Model
         'days',
         'payment_method',
         'order_data',
+        'order_status'
     ];
 }

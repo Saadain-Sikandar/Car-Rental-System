@@ -27,6 +27,7 @@ Route::prefix('Admin')->group(function () {
     Route::get('/adminaddcar', [AdminController::class, 'addCar'])->name('Admin.adminaddcar');
     Route::get('/admininfo', [AdminController::class, 'info'])->name('Admin.admininfo');
     Route::get('/adminInfoForm', [AdminController::class, 'infoForm'])->name('Admin.adminInfoForm');
+    Route::get('/adminorderdetails',[AdminController::class,'OrderDetails'])->name('Admin.adminOrderDetails');
     // DB 
     Route::POST('/admin/store-car', [AdminController :: class, 'storecar'])->name('admin.storecar');
     Route::get('/admin/edit/car/{id}',[AdminController :: class,'editCar'])->name('admin.editCar');
@@ -36,6 +37,8 @@ Route::prefix('Admin')->group(function () {
     Route::get('/admin/edit/CompanyInfo/{id}',[AdminController :: class,'EditCompanyInfo'])->name('admin.EditCompanyInfo');
     Route::put('/admin/update/CompanyInfo/{id}' ,[AdminController:: class, 'updateCompanyinfo'])->name('admin.updateCompanyinfo');
     Route::delete('/admin/Delete/ComapnyInfo/{id}',[AdminController:: class, 'DeleteCompanyInfo'])->name('admin.DeleteCompanyInfo');
+    Route::get('/admin/edit/order/status/{id}',[AdminController::class,'EditOrderStatus'])->name('admin.EditOrderStatus');
+    Route::put('/admin/update/orderstatus/{id}',[AdminController::class,'UpdateOrderStatus'])->name('updateOrderStatus');
 
 
 

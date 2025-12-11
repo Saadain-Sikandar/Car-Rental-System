@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use App\Models\Company_info;
+use App\Models\customer_orders;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -232,4 +233,45 @@ class AdminController extends Controller
     }
     // Delete Company Info ends
 
+
+    //Order Details
+
+    public function OrderDetails()
+    {
+
+        $orders = customer_orders::all();
+
+        return view('Admin.adminOrderDetails', compact('orders'));
+    }
+
+    public function EditOrderStatus($id)
+    {
+
+        $orders = customer_orders::findOrFail($id);
+        return view('Admin.EditOrderStatus', compact('orders'));
+    }
+
+    public function UpdateOrderStatus(Request $request, $id)
+    {
+
+        try {
+            $request->validate([
+
+                'order_status'
+            ]);
+
+            $orders = customer_orders::findOrFail($id);
+
+            $data = $request->only(['order_status']);
+
+            $orders->update($data);
+
+            Alert::success('success', 'Order Status Updated!');
+
+            return redirect()->route('Admin.adminOrderDetails');
+        } catch (\Exception $e) {
+
+            dd($e->getmessage());
+        }
+    }
 }
