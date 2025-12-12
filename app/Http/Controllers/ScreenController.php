@@ -6,6 +6,7 @@ use App\Models\Car;
 use App\Models\Company_info;
 use App\Models\customer_orders;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ScreenController extends Controller
@@ -91,20 +92,45 @@ class ScreenController extends Controller
     }
 
     // Search Bar
-    public function CarSearch(Request $request){
+    public function CarSearch(Request $request)
+    {
 
         $query = $request->get('query');
-        $cars = Car::where('name','LIKE',"%{$query}%")
-        ->orWhere('model','LIKE',"%{$query}%")
-        ->get();
+        $cars = Car::where('name', 'LIKE', "%{$query}%")
+            ->orWhere('model', 'LIKE', "%{$query}%")
+            ->get();
 
-        return view('Screen.carSearch',compact('cars'));
-
+        return view('Screen.carSearch', compact('cars'));
     }
 
     // my Rentals 
-    public function myRentals()
-    {
-        return view('Screen.myRentals');
+
+    public function myRentals(){
+    $user = Auth::user();
+    
+    $orders = customer_orders::where('email', $user->email)->get();
+
+    $rentals = [];
+
+    foreach($orders as $order){
+        // Decode JSON string to array
+        $cars = json_decode($order->order_data, true);
+
+        if(is_array($cars)){
+            foreach($cars as $car){
+                // Add order info to each car
+                $car['days'] = $order->days;
+                $car['order_time'] = $order->created_at;
+                $car['status'] = $order->order_status;
+                
+                // total price for this car
+                $car['total'] = ($car['price'] ?? 0) * ($order->days ?? 0);
+                $rentals[] = $car;
+            }
+        }
     }
+
+    return view('Screen.myRentals', compact('rentals'));
+}
+
 }

@@ -29,27 +29,34 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Full Name</label>
-                            <input type="text" class="form-control" name="fullname" placeholder="Enter your name" required>
+                            <input type="text" class="form-control" name="fullname" placeholder="Enter your name"
+                                required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Email</label>
-                            <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
+                            <input type="email" class="form-control" name="email" value="{{ Auth::user()->email }}"
+                                disabled placeholder="Enter your email" required>
+                            <input type="hidden" name="email" value="{{ Auth::user()->email }}">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Enter days</label>
-                            <input type="number" class="form-control" name="days" placeholder="Enter no of days to rent" required>
+                            <input type="number" class="form-control" name="days"
+                                placeholder="Enter no of days to rent" required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">Contact</label>
-                            <input type="number" class="form-control" name="contact" placeholder="03XX-XXXXXXX" required>
+                            <input type="number" class="form-control" name="contact" placeholder="03XX-XXXXXXX"
+                                required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">CNIC</label>
-                            <input type="text" class="form-control" name="cnic" placeholder="XXXXX-XXXXXXX-X" required>
+                            <input type="text" class="form-control" name="cnic" placeholder="XXXXX-XXXXXXX-X"
+                                required>
                         </div>
                         <div class="col-12">
                             <label class="form-label fw-semibold">Address</label>
-                            <input type="text" class="form-control" name="address" placeholder="House #, Street, City" required>
+                            <input type="text" class="form-control" name="address"
+                                placeholder="House #, Street, City" required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label fw-semibold">City</label>
@@ -157,7 +164,7 @@
             timer: 2000,
             showConfirmButton: false
         }).then(() => {
-            form.submit(); 
+            form.submit();
             localStorage.clear();
         });
     }
