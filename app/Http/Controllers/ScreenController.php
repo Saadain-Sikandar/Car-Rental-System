@@ -90,6 +90,18 @@ class ScreenController extends Controller
         }
     }
 
+    // Search Bar
+    public function CarSearch(Request $request){
+
+        $query = $request->get('query');
+        $cars = Car::where('name','LIKE',"%{$query}%")
+        ->orWhere('model','LIKE',"%{$query}%")
+        ->get();
+
+        return view('Screen.carSearch',compact('cars'));
+
+    }
+
     // my Rentals 
     public function myRentals()
     {

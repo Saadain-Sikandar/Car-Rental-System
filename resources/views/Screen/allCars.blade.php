@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CarLink - Our Cars</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -34,26 +33,44 @@
         </div>
     </div>
 
+    <!-- Search Bar -->
+
+    <div class="d-flex justify-content-center align-items-center flex-column mt-4 p-2">
+        <div class="input-group mb-2" style="max-width: 400px;">
+            <span class="input-group-text bg-dark text-white">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
+            <input type="text" id="car_search" class="form-control py-2" placeholder="Search car by name...">
+        </div>
+
+        <div class="container">
+            <div class="row" id="carsearch-results">
+                {{-- car data will display here --}}
+            </div>
+        </div>
+    </div>
+
     <!-- All Cars Section -->
     <section class="container my-5">
         <div class="row g-4" id="car-list-container">
-            @foreach($cars as $car)
-            <div class="col-md-4 col-sm-6">
-                <div class="card shadow-sm">
-                    <img height="320px" src="{{ asset( 'car_images/' . $car->image) }}" class="card-img-top" alt="${car.name}">
-                    <div class="card-body text-center">
-                        <h5 class="fw-bold bg-black text-white p-1">{{$car->name}}</h5>
-                        <p class="bg-black text-white p-1">PKR {{$car->price}}/day</p>
-                        <div class="d-flex justify-content-center gap-2">
-                            <a href="{{ route('car-details' , $car->id) }}" class="btn btn-dark btn-sm">
-                                View Details
-                            </a>
-                            <!-- for saving image in local storage  -->
-                            <?php
-                            $carImageUrl = asset('car_images/' . $car->image)
-                            ?>
-                            <button class="btn btn-warning btn-sm"
-                                onclick="addToCart
+            @foreach ($cars as $car)
+                <div class="col-md-4 col-sm-6">
+                    <div class="card shadow-sm">
+                        <img height="320px" src="{{ asset('car_images/' . $car->image) }}" class="card-img-top"
+                            alt="${car.name}">
+                        <div class="card-body text-center">
+                            <h5 class="fw-bold bg-black text-white p-1">{{ $car->name }}</h5>
+                            <p class="bg-black text-white p-1">PKR {{ $car->price }}/day</p>
+                            <div class="d-flex justify-content-center gap-2">
+                                <a href="{{ route('car-details', $car->id) }}" class="btn btn-dark btn-sm">
+                                    View Details
+                                </a>
+                                <!-- for saving image in local storage  -->
+                                <?php
+                                $carImageUrl = asset('car_images/' . $car->image);
+                                ?>
+                                <button class="btn btn-warning btn-sm"
+                                    onclick="addToCart
                                 ('{{ $car->id }}',
                                 '{{ $car->name }}', 
                                 '{{ $car->model }}', 
@@ -61,25 +78,25 @@
                                 '{{ $car->price }}',
                                 '{{ $carImageUrl }}',
                                 '{{ $car->color }}',
-                                '{{ $car->status }}'
-                                 )">
-                                <i class="fa-solid fa-cart-plus"></i> Add
-                            </button>
+                                '{{ $car->status }}')
+">
+                                    <i class="fa-solid fa-cart-plus"></i> Add
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             @endforeach
         </div>
     </section>
 
     <!-- Footer  -->
     @include('components.footer')
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
     function addToCart(id, name, model, year, price, image, color, status) {
@@ -123,6 +140,33 @@
             });
         }
     }
+
+    // Search Bar using AJAX
+    $(document).ready(function() {
+        $('#car_search').on('keyup', function() {
+
+            let query = $(this).val();
+
+            if (query.length > 0) {
+
+                $.ajax({
+                    url: '{{ route('carSearch') }}',
+                    method: 'GET',
+                    data: {
+                        query: query
+                    },
+                    success: function(response) {
+                        $('#carsearch-results').html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                })
+            } else {
+                $('#carsearch-results').empty();
+            }
+        });
+    });
 </script>
 
 </html>
