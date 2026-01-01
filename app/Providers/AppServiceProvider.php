@@ -14,7 +14,6 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // No need to call Passport::routes() in Passport 13
-        // Passport::$keyPath = storage_path(); // also remove this
+        //
     }
 }

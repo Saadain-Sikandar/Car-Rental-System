@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ScreenController;
-
+use Illuminate\Http\Request;
 
 // auth 
 Route::get('/auth/login', [AuthController::class, 'login'])->name('auth.login');
@@ -61,6 +61,14 @@ Route::prefix('Admin')->group(function () {
     Route::delete('/admin/Delete/ComapnyInfo/{id}', [AdminController::class, 'DeleteCompanyInfo'])->name('admin.DeleteCompanyInfo');
     Route::get('/admin/edit/order/status/{id}', [AdminController::class, 'EditOrderStatus'])->name('admin.adminEditOrderStatus');
     Route::put('/admin/update/orderstatus/{id}', [AdminController::class, 'UpdateOrderStatus'])->name('admin.adminupdateOrderStatus');
+});
+
+// Passport 
+Route::middleware('auth:api')->get('/test', function (Request $request) {
+    return response()->json([
+        'message' => 'You are authenticated!',
+        'user' => $request->user()
+    ]);
 });
 
 

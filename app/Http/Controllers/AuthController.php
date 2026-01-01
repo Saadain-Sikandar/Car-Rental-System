@@ -21,38 +21,31 @@ class AuthController extends Controller
     public function RegisterUser(Request $request)
     {
 
-        try {
-            $request->validate([
+        $request->validate([
 
-                'name' => 'required',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required|min:8',
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8|confirmed',
 
-            ]);
-            $data = $request->all();
+        ]);
+        $data = $request->all();
 
-            $data = [
+        $data = [
 
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
 
-            ];
+        ];
 
-            $user = User::create($data);
+        $user = User::create($data);
 
-            if (!$user) {
+        if ($user) {
 
-                Alert::error('error', 'Registration Failed');
-                return redirect()->route('auth.signup');
-            } else {
-
-                Alert::success('success', 'Registration successfull!');
-                return redirect()->route('auth.login');
-            }
-        } catch (\Exception $e) {
-
-            dd($e->getmessage());
+            Alert::success('success', 'Registration successfull!');
+            return redirect()->route('auth.login');
+        } else {
+            return redirect()->route('auth.signup')->with('error', 'Registration Failed!');
         }
     }
 
