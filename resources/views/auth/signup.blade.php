@@ -55,6 +55,8 @@
                     <label for="password" class="form-label text-secondary">Password</label>
                     <input type="password" id="password" name="password" class="form-control border-0"
                         style="background-color: #f1f1f1; color: #212529;" placeholder="Enter your password" required>
+                    <span onclick="Toggle()"
+                        style="position: absolute; left:380px; bottom:210px; cursor: pointer; ">Show</span>
                 </div>
 
                 <!-- Confirm Password -->
@@ -63,6 +65,8 @@
                     <input type="password" id="password_confirmation" name="password_confirmation"
                         class="form-control border-0" style="background-color: #f1f1f1; color: #212529;"
                         placeholder="Re-enter your password" required>
+                    <span onclick="Toggle()"
+                        style="position: absolute; left:380px; bottom:120px; cursor: pointer; ">Show</span>
                 </div>
 
                 <!-- Submit Button -->
@@ -83,7 +87,23 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    {{-- @include('sweetalert::alert') --}}
+    <script>
+        function Toggle() {
+            const field = document.getElementById('password')
+            const cp = document.getElementById('password_confirmation');
+            if (field.type === "password" || cp.type === "password") {
+                field.type = "text";
+            } else {
+                field.type = "password";
+            }
+            if (cp.type === "password") {
+                cp.type = "text";
+            } else {
+                cp.type = "password";
+            }
+
+        }
+    </script>
 </body>
 
 </html>

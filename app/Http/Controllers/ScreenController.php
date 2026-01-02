@@ -7,6 +7,7 @@ use App\Models\Company_info;
 use App\Models\customer_orders;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ScreenController extends Controller
@@ -54,6 +55,8 @@ class ScreenController extends Controller
 
     public function placeOrder(Request $request)
     {
+        DB::beginTransaction();
+
         try {
             $request->validate([
                 'fullname' => 'required',
@@ -67,7 +70,12 @@ class ScreenController extends Controller
                 'cart_data' => 'required',
             ]);
 
-            $JsonCart = $request->cart_data;
+            // Decode JSON string to array
+            $cart = json_decode($request->cart_data, true) ?? [];
+
+            if (!is_array($cart) || empty($cart)) {
+                throw new \Exception('Invalid cart data');
+            }
 
             $data = [
                 'fullname' => $request->fullname,
@@ -78,19 +86,28 @@ class ScreenController extends Controller
                 'city' => $request->city,
                 'days' => $request->days,
                 'payment_method' => $request->payment_method,
-                'order_data' => $JsonCart, // store cart JSON
-                'order_status' => 'Pending'
+                'order_data' => json_encode($cart),
+                'order_status' => 'Pending',
             ];
 
             customer_orders::create($data);
 
+            // Update car status safely
+            foreach ($cart as $item) {
+                Car::where('id', $item['id'])
+                    ->where('status', 'Available')
+                    ->update(['status' => 'Not Available']);
+            }
+
+            DB::commit();
+
             Alert::success('Success', 'Order placed Successfully!');
             return redirect()->route('home');
         } catch (\Exception $e) {
+            DB::rollBack();
             dd($e->getMessage());
         }
     }
-
     // Search Bar
     public function CarSearch(Request $request)
     {
@@ -105,32 +122,32 @@ class ScreenController extends Controller
 
     // my Rentals 
 
-    public function myRentals(){
-    $user = Auth::user();
-    
-    $orders = customer_orders::where('email', $user->email)->get();
+    public function myRentals()
+    {
+        $user = Auth::user();
 
-    $rentals = [];
+        $orders = customer_orders::where('email', $user->email)->get();
 
-    foreach($orders as $order){
-        // Decode JSON string to array
-        $cars = json_decode($order->order_data, true);
+        $rentals = [];
 
-        if(is_array($cars)){
-            foreach($cars as $car){
-                // Add order info to each car
-                $car['days'] = $order->days;
-                $car['order_time'] = $order->created_at;
-                $car['status'] = $order->order_status;
-                
-                // total price for this car
-                $car['total'] = ($car['price'] ?? 0) * ($order->days ?? 0);
-                $rentals[] = $car;
+        foreach ($orders as $order) {
+            // Decode JSON string to array
+            $cars = json_decode($order->order_data, true);
+
+            if (is_array($cars)) {
+                foreach ($cars as $car) {
+                    // Add order info to each car
+                    $car['days'] = $order->days;
+                    $car['order_time'] = $order->created_at;
+                    $car['status'] = $order->order_status;
+
+                    // total price for this car
+                    $car['total'] = ($car['price'] ?? 0) * ($order->days ?? 0);
+                    $rentals[] = $car;
+                }
             }
         }
+
+        return view('Screen.myRentals', compact('rentals'));
     }
-
-    return view('Screen.myRentals', compact('rentals'));
-}
-
 }
